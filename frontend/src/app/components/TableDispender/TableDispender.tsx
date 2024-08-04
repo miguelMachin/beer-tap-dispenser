@@ -20,15 +20,18 @@ const TableDispender = () => {
 
 
     useEffect(() => {
-        API.getDispensers().then((data) => { 
-            setDispensers(data);
-            setShowSpinner(false);
-         });
+        getDispensers();
     }, [])
 
 
     /*FUNCTIONS*/
-
+    const getDispensers = () => {
+        setShowSpinner(true)
+        API.getDispensers().then((data) => { 
+            setDispensers(data);
+            setShowSpinner(false);
+         });
+    }
 
     /*RENDERS*/
     const renderTh = () => {
@@ -36,6 +39,7 @@ const TableDispender = () => {
             <tr>
                 <th>ID</th>
                 <th>flow volumen</th>
+                <th>price per liter</th>
                 <th>Spending</th>
                 <th>Status</th>
             </tr>
@@ -47,6 +51,7 @@ const TableDispender = () => {
             <>
                 <td>{d.id}</td>
                 <td>{d.flow_volume}</td>
+                <td>{d.price_per_liter}</td>
                 <td>{d.amount}</td>
                 <td>{d.status === Status.OPEN ? "Open" : "Close"}</td>
             </>
@@ -55,7 +60,11 @@ const TableDispender = () => {
 
     const renderModal = () => {
         return (
-            <Modal dispenser={dispenserSelected} typeModal={modalSelected} cbClose={() => { setOpenModal(false) }} />
+            <Modal 
+            dispenser={dispenserSelected} 
+            typeModal={modalSelected} 
+            cbClose={() => { setOpenModal(false) }}
+            cbUpdateTableList={() => { getDispensers() }} />
         )
     }
 

@@ -8,25 +8,41 @@ type modalProps = {
     dispenser: Dispenser | undefined,
     typeModal: TypeModal | undefined,
     cbClose: any
+    cbUpdateTableList: any
 }
 
 
 
-const Modal: React.FC<modalProps> = ({ dispenser, typeModal, cbClose }) => {
+const Modal: React.FC<modalProps> = ({ dispenser, typeModal, cbClose, cbUpdateTableList }) => {
     /*States*/
     const [flowVolume, setFlowVolume] = React.useState<string>("");
     const [pricePerLiter, setPricePerLiter] = React.useState<string>("");
+    const [isErrorMessage, setIsErrorMessage] = React.useState<boolean>(false);
 
     /*FUNCTIONS*/
     const sendForm = () => {
         if (!isNaN(+flowVolume) && !isNaN(+pricePerLiter)) {
             API.createDispenser(Number(flowVolume), Number(pricePerLiter))
-                .then((data) => console.log(data))
+                .then((data) => {
+                    cbClose()
+                    cbUpdateTableList()
+                    setIsErrorMessage(false)
+                })
+                .catch((error) => console.error(error))
+        } else {
+            setIsErrorMessage(true)
         }
 
     }
 
     /*RENDERS*/
+    const renderError = () => {
+        return (
+            <div className="alert alert-danger" role="alert">
+                Values ​​must be numerical
+            </div>
+        )
+    }
 
     const renderModal = () => {
         return (
@@ -35,6 +51,7 @@ const Modal: React.FC<modalProps> = ({ dispenser, typeModal, cbClose }) => {
                 <div className="modal-dialog modal-dialog-scrollable modal-lg">
                     <div className="modal-content">
                         {typeModal === TypeModal.DETAIL ? renderContentModalDetails() : renderContentModalCreate()}
+                        {isErrorMessage ? renderError() : ""}
                         <div className="modal-footer">
                             {typeModal === TypeModal.DETAIL
                                 ? ""

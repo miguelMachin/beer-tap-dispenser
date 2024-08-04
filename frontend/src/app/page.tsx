@@ -13,32 +13,60 @@ export default function Home() {
 
   const [dispensers, setDispensers] = React.useState<DispenserType[]>([]);
   const [showSpinner, setShowSpinner] = React.useState<boolean>(true);
+  const [isErrorMessage, setIsErrorMessage] = React.useState<boolean>(false);
 
   useEffect(() => {
-    API.getDispensers().then((data) => { 
-      setDispensers(data)
-      setShowSpinner(false)
-    }).catch((error) => console.error(error));
+    API.getDispensers().then((data) => {
+      console.log(!!data)
+      if (data === undefined) {
+        setIsErrorMessage(true)
+        setShowSpinner(false)
+      } else {
+        setDispensers(data)
+        setShowSpinner(false)
+        setIsErrorMessage(false)
+      }
+    }).catch((error) => {
+      console.error(error)
+    });
   }, [])
+
+  /*functions*/
+
+  /*Renders*/
+
+  const renderErrorMessage = () => {
+    return (
+      <>
+        <div className="alert alert-danger" role="alert">
+          An error has occurred, consult your administrator
+        </div>
+      </>
+    )
+  }
 
   const renerDispensers = () => {
     return (
       <>
-        <div className="grid-container">
-          {dispensers.map(d => {
-            return (<span key={d.id}>
-              {<Dispenser dispenser={d} />}
-            </span>)
-          })}
-        </div>
+        {isErrorMessage
+          ? renderErrorMessage()
+          : (<div className="grid-container">
+            {dispensers.map(d => {
+              return (<span key={d.id}>
+                {<Dispenser dispenser={d} />}
+              </span>)
+            })}
+          </div>
+
+          )}
       </>
     )
   }
 
   const renderSpinner = () => {
     return (
-      
-        <Spinner />
+
+      <Spinner />
     )
   }
 
@@ -46,7 +74,7 @@ export default function Home() {
     <main className={inter.className}>
       <div className="container">
         {
-         showSpinner ?  renderSpinner() : renerDispensers()
+          showSpinner ? renderSpinner() : renerDispensers()
         }
       </div>
     </main>

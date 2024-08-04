@@ -36,15 +36,15 @@ class BeerTapDispenserApplicationTests {
 		DispenserDto dispenserDto = dispenserService.findDispenser("cb0825b0-9666-4fb9-ac79-c5125c332b7e");
 		System.out.println(dispenserDto);
 	}*/
-
+/*
 	@Test
 	void testDispenserServiceFindByIdSpending() throws ParseException {
-		/*DispenserSpendingDto dispenserSpendingDto = dispenserService.findDispenserSpending("f4b94168-e520-44ef-a6b0-21ebcfa568a2");
-		System.out.println(dispenserSpendingDto);*/
+		DispenserSpendingDto dispenserSpendingDto = dispenserService.findDispenserSpending("f4b94168-e520-44ef-a6b0-21ebcfa568a2");
+		System.out.println(dispenserSpendingDto);
 
     //     simpleDateFormat.format(calendar.getTime());
 
-        /*String date_string = "2024-01-01 07:00:00";
+        String date_string = "2024-01-01 07:00:00";
         //Instantiating the SimpleDateFormat class
         //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -56,7 +56,7 @@ class BeerTapDispenserApplicationTests {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Long.parseLong("1704088800000"));
         System.out.println(formatter.format(calendar.getTime()));
-        System.out.println(formatter.format(date.getTime()));*/
+        System.out.println(formatter.format(date.getTime()));
 
         //System.out.println(Utils.longDateToString(Long.parseLong("1704088800000")));
 		//System.out.println(Utils.stringToDate("2024-01-01T06:00:20Z"));
@@ -64,7 +64,7 @@ class BeerTapDispenserApplicationTests {
 
 
 
-	}
+	}*/
 
 
 }

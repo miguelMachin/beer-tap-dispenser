@@ -76,7 +76,7 @@ const Dispenser: React.FC<dispenserProps> = ({ dispenser }) => {
                     <div className={styles.box}>
                         <div className={styles.title_box}>Price</div>
                         <hr className={styles.hr} />
-                        <div>{spending.toFixed(3)} €</div>
+                        <div>{spending.toFixed(2)} €</div>
                     </div>
                 </div>
             </div>
