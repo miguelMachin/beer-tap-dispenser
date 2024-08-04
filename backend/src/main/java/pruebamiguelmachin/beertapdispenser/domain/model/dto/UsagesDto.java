@@ -11,8 +11,8 @@ import java.util.Date;
 @Setter
 public class UsagesDto {
     private Integer id;
-    private Date openet_at;
-    private Date close_at;
+    private String openet_at;
+    private String close_at;
     private float flow_volume;
     private float total_spent;
 

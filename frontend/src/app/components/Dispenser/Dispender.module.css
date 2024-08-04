@@ -1,0 +1,38 @@
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.container_button {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container_detail{
+    margin-top:10px;
+    display: flex;
+    justify-content: center;
+}
+
+.container_border{
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    width: 50%;
+}
+
+
+.box {
+    padding: 10px;
+    background-color: #fff;
+    background-clip: border-box;
+}
+
+.title_box {
+    margin-bottom: 10px;
+}
+
+.hr {
+    margin-top: 10px;
+}

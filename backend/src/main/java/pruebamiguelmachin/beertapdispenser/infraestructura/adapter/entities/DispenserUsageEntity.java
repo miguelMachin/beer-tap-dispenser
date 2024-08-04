@@ -21,6 +21,7 @@ public class DispenserUsageEntity {
 
     @Column(name = "close_at")
     private Date closeAt;
+
     @Column(name = "total_spent")
     private float totalSpent;
 

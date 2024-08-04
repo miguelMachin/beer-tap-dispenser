@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pruebamiguelmachin.beertapdispenser.application.mappers.DispenserMapper;
 import pruebamiguelmachin.beertapdispenser.application.mappers.DispenserUsageMapper;
 import pruebamiguelmachin.beertapdispenser.application.usercases.DispenserService;
+import pruebamiguelmachin.beertapdispenser.application.utils.Utils;
 import pruebamiguelmachin.beertapdispenser.domain.model.constants.DispenserConstants;
 import pruebamiguelmachin.beertapdispenser.domain.model.dto.DispenserDto;
 import pruebamiguelmachin.beertapdispenser.domain.model.dto.DispenserSpendingDto;
@@ -17,11 +18,14 @@ import pruebamiguelmachin.beertapdispenser.infraestructura.adapter.entities.Disp
 import pruebamiguelmachin.beertapdispenser.infraestructura.adapter.exception.DispenserException;
 
 ;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import static pruebamiguelmachin.beertapdispenser.application.utils.Utils.stringToDate;
 
 
 @Service
@@ -50,7 +54,7 @@ public class DispenserServiceImpl implements DispenserService {
     }
 
     @Override
-    public void updateStatus(String id, DispenserStatusDto dispenserStatusDto) {
+    public void updateStatus(String id, DispenserStatusDto dispenserStatusDto) throws ParseException {
         DispenserEntity dispenserEntity = dispenserPersistencePort.getById(UUID.fromString(id));
 
         if (dispenserEntity.getStatus() == dispenserStatusDto.getStatus()) {
@@ -80,7 +84,7 @@ public class DispenserServiceImpl implements DispenserService {
                     throw new DispenserException(HttpStatus.NOT_FOUND, String.format(DispenserConstants.DISPENSER_NOT_FOUND_USAGE_MESSAGE_ERROR, dispenserEntity.getId()));
                 }
 
-                usage.setCloseAt(dispenserStatusDto.getUpdated_at());
+                usage.setCloseAt(stringToDate(dispenserStatusDto.getUpdated_at()));
                 usage.setTotalSpent(
                         calculateTotalSpend(dispenserEntity.getPrice_per_liter(), dispenserEntity.getFlow_volumen(), usage.getOpenetAt(), usage.getCloseAt())
                 );
@@ -103,16 +107,10 @@ public class DispenserServiceImpl implements DispenserService {
     @Override
     public DispenserSpendingDto findDispenserSpending(String id) throws DispenserException  {
         DispenserEntity dispenserEntity = dispenserPersistencePort.getById(UUID.fromString(id));
-        float amount = 0.0f;
 
-        if (dispenserEntity.getUsages() != null ){
-            for (DispenserUsageEntity usageEntity : dispenserEntity.getUsages()) {
-                amount+=usageEntity.getTotalSpent();
-            }
-        }
 
         DispenserSpendingDto dispenserSpendingDto = new DispenserSpendingDto();
-        dispenserSpendingDto.setAmount(amount);
+        dispenserSpendingDto.setAmount(Utils.calculateAmount(dispenserEntity));
         dispenserSpendingDto.setUsages(
                 dispenserEntity.getUsages() != null ? new ArrayList<>(Stream.of(dispenserEntity.getUsages()).map(dispenserUsageMapper.mapToListUsageDto).findFirst().get()) : null
         );
@@ -128,10 +126,10 @@ public class DispenserServiceImpl implements DispenserService {
     }
 
 
-    private DispenserUsageEntity createUsage(DispenserEntity dispenserEntity, DispenserStatusDto dispenserStatusDto) {
+    private DispenserUsageEntity createUsage(DispenserEntity dispenserEntity, DispenserStatusDto dispenserStatusDto) throws ParseException {
         DispenserUsageEntity dispenserUsageEntity = new DispenserUsageEntity();
         dispenserUsageEntity.setDispenser(dispenserEntity);
-        dispenserUsageEntity.setOpenetAt(dispenserStatusDto.getUpdated_at());
+        dispenserUsageEntity.setOpenetAt(stringToDate(dispenserStatusDto.getUpdated_at()));
         return dispenserUsageEntity;
     }
 

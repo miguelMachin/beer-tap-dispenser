@@ -13,6 +13,7 @@ import pruebamiguelmachin.beertapdispenser.domain.model.enums.DispenserStatusEnu
 import pruebamiguelmachin.beertapdispenser.infraestructura.adapter.exception.DispenserException;
 
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class DispenserController {
             dispenserService.updateStatus(id, dispenserStatusDto);
         } catch (DispenserException ex) {
             throw new ResponseStatusException(ex.getErrorCode(), ex.getErrorMessage());
+        } catch (ParseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         return new ResponseEntity<>(dispenserStatusDto, HttpStatus.ACCEPTED);

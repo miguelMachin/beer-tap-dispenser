@@ -1,7 +1,64 @@
 #container {
-    padding: 10px
+  padding: 10px
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  min-height: 50px;
+  background: lightcyan;
+}
+
+footer {
+  min-height: 50px;
+  background: PapayaWhip;
+}
+
+
+
+main {
+  flex: 1;
+}
+
+.grid-container {
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
 }
 
 .modal {
-    display: block;
+  background-color: rgba(0, 0, 0, 0.9);
 }
+
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rem;
+}
+
+.form fieldset{
+  display: flex;
+  flex-direction: column;
+  width: 50rem;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 2.25rem;
+  padding: 20px;
+}
+
+.form fieldset .form-group{
+ margin-bottom: 20px;
+}
+
+.center {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
