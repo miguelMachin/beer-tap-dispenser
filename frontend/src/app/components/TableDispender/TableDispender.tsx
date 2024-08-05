@@ -38,8 +38,8 @@ const TableDispender = () => {
         return (
             <tr>
                 <th>ID</th>
-                <th>flow volumen</th>
-                <th>price per liter</th>
+                <th>Flow volumen</th>
+                <th>Price per liter</th>
                 <th>Spending</th>
                 <th>Status</th>
             </tr>

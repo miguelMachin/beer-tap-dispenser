@@ -112,7 +112,7 @@ const Modal: React.FC<modalProps> = ({ dispenser, typeModal, cbClose, cbUpdateTa
                 </div>
                 <div className="modal-body">
                     <div className="mb-3">
-                        <label className="form-label">flow volume</label>
+                        <label className="form-label">Flow volume</label>
                         <input type="text" className="form-control" value={flowVolume} onChange={(event) => { setFlowVolume(event.target.value) }} />
                     </div>
                     <div className="mb-3">

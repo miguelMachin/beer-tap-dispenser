@@ -17,7 +17,6 @@ export default function Home() {
 
   useEffect(() => {
     API.getDispensers().then((data) => {
-      console.log(!!data)
       if (data === undefined) {
         setIsErrorMessage(true)
         setShowSpinner(false)
