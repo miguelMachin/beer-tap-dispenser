@@ -211,5 +211,7 @@ Es posible que la primera vez de un error porque el network necesario no ha sido
 docker network create ext-network
 ```
 
+En caso de querer levantar la aplicación sin docker, se ha de modificar el `aplication.properties` y modificar el `spring.datasource.url`
+
 
 
