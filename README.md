@@ -1,4 +1,4 @@
-# Introduction
+# Introducción
 
 Beer tap dispenser es una aplicación diseñada gestionar y hacer uso de unos dispensadores de cerveza virtuales. La aplicación permite añadir dispensadores de cervezas y observar los detalles y usos de cada dispensador.
 La aplicación está dividida en las siguientes partes:
@@ -34,6 +34,7 @@ En la tabla dispenserusage se almacena cada uno de cada dispenser con su hora de
 
 ## BACKEND
 El backend ha sido generado con java 1.8 y springboot 2.7.5 en forma de microservicio basado en la arquitectura hexagonal con los siguientes endpoints.
+Para compilar el proyecto ejecutar el comando `maven clean install` con la opción de no realizar los test a menos que se levante la imagen de la base de datos.
 
 
 ```http
